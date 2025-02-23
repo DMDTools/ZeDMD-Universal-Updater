@@ -90,7 +90,7 @@ public static class UserInterface
 
                 if (choice == currentVersion)
                 {
-                    row += " ✅";
+                    row += " *";
                 }
 
                 versionTable.AddRow(row);

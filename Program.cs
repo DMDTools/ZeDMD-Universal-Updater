@@ -4,6 +4,8 @@ namespace ZeDMDUpdater;
 
 class Program
 {
+    private const string SELECTED_MARK = "[X]";
+    private const string UNSELECTED_MARK = "[ ]";
     static string selectedBoardType = "Standard";
     static bool useWifi = false;
     static async Task Main(string[] args)
@@ -22,21 +24,21 @@ class Program
             // Version selection status
             if (string.IsNullOrEmpty(UserInterface.CurrentVersion))
             {
-                selectVersionChoice = "⬜ Select Version"; // Empty checkbox at start
+                selectVersionChoice = $"{Markup.Escape(UNSELECTED_MARK)} Select Version"; // Empty checkbox at start
             }
             else
             {
-                selectVersionChoice = $"✅ Select Version ({UserInterface.CurrentVersion})"; // Green checkbox at start
+                selectVersionChoice = $"{Markup.Escape(SELECTED_MARK)} Select Version ({UserInterface.CurrentVersion})"; // Green checkbox at start
             }
 
             // Download firmware status
             if (firmwareDownloaded)
             {
-                downloadFirmwareChoice = "✅ Download Firmware"; // Green checkbox if firmware exists
+                downloadFirmwareChoice = $"{Markup.Escape(SELECTED_MARK)} Download Firmware"; // Green checkbox if firmware exists
             }
             else
             {
-                downloadFirmwareChoice = "⬜ Download Firmware"; // Empty checkbox if no firmware
+                downloadFirmwareChoice = $"{Markup.Escape(UNSELECTED_MARK)} Download Firmware"; // Empty checkbox if no firmware
             }
 
             string selectBoardTypeChoice;
@@ -67,14 +69,14 @@ class Program
             {
                 switch (choice)
                 {
-                    case var c when c.StartsWith("⬜ Select Version") ||
-                                    c.StartsWith("✅ Select Version"):
+                    case var c when c.StartsWith($"{Markup.Escape(UNSELECTED_MARK)} Select Version") ||
+                                    c.StartsWith($"{Markup.Escape(SELECTED_MARK)} Select Version"):
                         await UserInterface.ShowVersions();
                         firmwareDownloaded = false;
                         break;
 
-                    case var c when c.StartsWith("⬜ Download Firmware") ||
-                                    c.StartsWith("✅ Download Firmware"):
+                    case var c when c.StartsWith($"{Markup.Escape(UNSELECTED_MARK)} Download Firmware") ||
+                                    c.StartsWith($"{Markup.Escape(SELECTED_MARK)} Download Firmware"):
                         // If UserInterface.CurrentVersion is null or empty, prompt the user to select a version
                         if (string.IsNullOrEmpty(UserInterface.CurrentVersion))
                         {

@@ -2,6 +2,8 @@
 
 A universal (Windows, Linux, MacOS) command-line utility to update firmware on ZeDMD displays.
 
+![Screenshot](screenshot.png)
+
 ## Features
 
 - Support for multiple board types:

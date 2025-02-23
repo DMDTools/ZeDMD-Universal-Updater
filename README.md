@@ -4,6 +4,10 @@ A universal (Windows, Linux, MacOS) command-line utility to update firmware on Z
 
 ![Screenshot](screenshot.png)
 
+> [!NOTE]
+> ZeDMDUpdater-universal is a non-Windows specific alternative to the great [ZeDMD_Updater2](https://github.com/zesinger/ZeDMD_Updater2).
+> It only supports flashing through USB for now, and does not yet allow to set ZeDMD configuration.
+
 ## Features
 
 - Support for multiple board types:
@@ -12,7 +16,7 @@ A universal (Windows, Linux, MacOS) command-line utility to update firmware on Z
   - LilygoS3Amoled (with optional WiFi support)
 - Firmware version selection
 - Easy-to-use interactive menu
-- Device settings configuration
+- Device settings configuration (coming)
 
 ## Prerequisites
 

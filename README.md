@@ -17,7 +17,8 @@ A universal (Windows, Linux, MacOS) command-line utility to update firmware on Z
 ## Prerequisites
 
 - Windows, Linux, or macOS
-- .NET 8.0 or later
+- [.NET 8.0 runtime](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) or later for your OS
+- [esptool](https://github.com/espressif/esptool) (`esptool.exe` or `esptool`) in the same folder as ZeDMDUpdater
 
 ### For Windows WSL Users
 

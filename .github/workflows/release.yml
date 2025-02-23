@@ -1,0 +1,68 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    name: Build and Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+    
+    - name: Restore dependencies
+      run: dotnet restore
+    
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
+    
+    - name: Publish Windows
+      run: dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true
+    
+    - name: Publish Linux
+      run: dotnet publish -c Release -r linux-x64 --self-contained true -p:PublishSingleFile=true
+    
+    - name: Publish macOS
+      run: dotnet publish -c Release -r osx-x64 --self-contained true -p:PublishSingleFile=true
+    
+    - name: Zip Windows Release
+      run: zip -j ZeDMDUpdater-windows-x64.zip bin/Release/net8.0/win-x64/publish/ZeDMDUpdater.exe
+    
+    - name: Zip Linux Release
+      run: zip -j ZeDMDUpdater-linux-x64.zip bin/Release/net8.0/linux-x64/publish/ZeDMDUpdater
+    
+    - name: Zip macOS Release
+      run: zip -j ZeDMDUpdater-macos-x64.zip bin/Release/net8.0/osx-x64/publish/ZeDMDUpdater
+    
+    - name: Generate Release Notes
+      id: release_notes
+      run: |
+        git log $(git describe --tags --abbrev=0 HEAD^)..HEAD --pretty=format:"- %s" > RELEASE_NOTES.md
+    
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          ZeDMDUpdater-windows-x64.zip
+          ZeDMDUpdater-linux-x64.zip
+          ZeDMDUpdater-macos-x64.zip
+        body_path: RELEASE_NOTES.md
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

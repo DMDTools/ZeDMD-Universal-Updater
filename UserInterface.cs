@@ -97,7 +97,7 @@ public static class UserInterface
             }
 
             var versionPanel = new Panel(versionTable)
-                .Header("↑↓: move, Enter: select")
+                .Header("Select version")
                 .Padding(new Padding(1))
                 .BorderStyle(Style.Parse("green"))
                 .Expand();

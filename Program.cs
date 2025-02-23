@@ -116,7 +116,7 @@ class Program
                         break;
 
                     case var c when c.StartsWith("Select Board Type"):
-                        var boardTypes = new[] { "Standard", "LilygoS3Amoled", "S3-N16R8", "← Back" };
+                        var boardTypes = new[] { "Standard", "LilygoS3Amoled", "S3-N16R8", "< Back" };
                         var boardSelection = new SelectionPrompt<string>()
                             .Title("Select board type:")
                             .AddChoices(boardTypes)
@@ -125,7 +125,7 @@ class Program
 
                         var boardType = AnsiConsole.Prompt(boardSelection);
 
-                        if (boardType != "← Back")
+                        if (boardType != "< Back")
                         {
                             selectedBoardType = boardType;
                             if (boardType == "LilygoS3Amoled")
@@ -167,7 +167,7 @@ class Program
                             }
 
                             var portChoices = new List<string>(ports);
-                            portChoices.Add("← Back");
+                            portChoices.Add("< Back");
 
                             var portSelection = new SelectionPrompt<string>()
                                 .Title("Select serial port:")
@@ -177,7 +177,7 @@ class Program
 
                             var selectedPort = AnsiConsole.Prompt(portSelection);
 
-                            if (selectedPort == "← Back")
+                            if (selectedPort == "< Back")
                             {
                                 Console.Clear();
                                 break;

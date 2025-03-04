@@ -37,8 +37,11 @@ jobs:
     - name: Publish Linux
       run: dotnet publish -c Release -r linux-x64 --self-contained true -p:PublishSingleFile=true
     
-    - name: Publish macOS
+    - name: Publish macOS x64
       run: dotnet publish -c Release -r osx-x64 --self-contained true -p:PublishSingleFile=true
+    
+    - name: Publish macOS ARM64
+      run: dotnet publish -c Release -r osx-arm64 --self-contained true -p:PublishSingleFile=true
     
     - name: Zip Windows Release
       run: zip -j ZeDMDUpdater-windows-x64.zip bin/Release/net8.0/win-x64/publish/ZeDMDUpdater.exe
@@ -46,8 +49,11 @@ jobs:
     - name: Zip Linux Release
       run: zip -j ZeDMDUpdater-linux-x64.zip bin/Release/net8.0/linux-x64/publish/ZeDMDUpdater
     
-    - name: Zip macOS Release
+    - name: Zip macOS x64 Release
       run: zip -j ZeDMDUpdater-macos-x64.zip bin/Release/net8.0/osx-x64/publish/ZeDMDUpdater
+    
+    - name: Zip macOS ARM64 Release
+      run: zip -j ZeDMDUpdater-macos-arm64.zip bin/Release/net8.0/osx-arm64/publish/ZeDMDUpdater
     
     - name: Generate Release Notes
       id: release_notes
@@ -61,6 +67,7 @@ jobs:
           ZeDMDUpdater-windows-x64.zip
           ZeDMDUpdater-linux-x64.zip
           ZeDMDUpdater-macos-x64.zip
+          ZeDMDUpdater-macos-arm64.zip
         body_path: RELEASE_NOTES.md
         draft: false
         prerelease: false

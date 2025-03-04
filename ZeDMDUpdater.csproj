@@ -1,15 +1,40 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <RuntimeIdentifiers>osx-arm64;osx-x64;win-x64;linux-x64</RuntimeIdentifiers>
   </PropertyGroup>
+
+  <!-- Copy native libraries after build -->
+  <Target Name="CopyNativeLibraries" AfterTargets="Build">
+    <ItemGroup>
+      <!-- macOS libraries -->
+      <NativeLibraries Include="runtimes\osx-arm64\native\*.dylib" Condition="Exists('runtimes\osx-arm64\native')" />
+      <NativeLibraries Include="runtimes\osx-x64\native\*.dylib" Condition="Exists('runtimes\osx-x64\native')" />
+      
+      <!-- Windows libraries -->
+      <NativeLibraries Include="runtimes\win-x64\native\*.dll" Condition="Exists('runtimes\win-x64\native')" />
+      
+      <!-- Linux libraries -->
+      <NativeLibraries Include="runtimes\linux-x64\native\*.so" Condition="Exists('runtimes\linux-x64\native')" />
+    </ItemGroup>
+    
+    <Copy
+      SourceFiles="@(NativeLibraries)"
+      DestinationFolder="$(OutputPath)"
+    />
+  </Target>
 
   <ItemGroup>
     <PackageReference Include="Spectre.Console" Version="0.49.1" />
     <PackageReference Include="System.IO.Ports" Version="9.0.2" />
   </ItemGroup>
 
+    <ItemGroup>
+    <None Update="RGBW.raw">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

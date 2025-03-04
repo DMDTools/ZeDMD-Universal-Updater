@@ -5,34 +5,6 @@ namespace ZeDMDUpdater;
 
 public class DeviceManager
 {
-    public Task<List<string>> GetAvailablePorts()
-    {
-        // TODO: Use LibZeDMD to list ZeDMD devices
-        List<string> ports = new List<string>();
-
-        // Standard SerialPort.GetPortNames() attempt
-        ports.AddRange(SerialPort.GetPortNames());
-
-        // Linux-specific checks
-        if (OperatingSystem.IsLinux())
-        {
-            // Check for ttyUSB devices
-            string[] ttyUSBDevices = Directory.GetFiles("/dev", "ttyUSB*");
-            ports.AddRange(ttyUSBDevices);
-
-            // Check for ttyACM devices (for Arduino-compatible devices)
-            string[] ttyACMDevices = Directory.GetFiles("/dev", "ttyACM*");
-            ports.AddRange(ttyACMDevices);
-
-            // Check for ttyS devices
-            string[] ttySDevices = Directory.GetFiles("/dev", "ttyS*");
-            ports.AddRange(ttySDevices);
-        }
-
-        // Remove duplicates and sort
-        return Task.FromResult(ports.Distinct().OrderBy(p => p).ToList());
-    }
-
     public async Task<bool> FlashFirmware(string firmwarePath, string portName, bool isS3 = false, Action<string>? logCallback = null)
     {
         try
@@ -98,10 +70,4 @@ public class DeviceManager
         }
     }
 
-
-    public Task ApplySettings(Dictionary<string, string> settings)
-    {
-        // Implement settings application logic here
-        return Task.CompletedTask;
-    }
 }

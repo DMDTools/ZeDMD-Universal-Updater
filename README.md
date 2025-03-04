@@ -1,12 +1,13 @@
 # ZeDMD Updater
 
-A universal (Windows, Linux, MacOS) command-line utility to update firmware on ZeDMD displays.
+A universal (Windows, Linux, MacOS) command-line utility to update firmware on ZeDMD displays and configure them.
 
 ![Screenshot](screenshot.png)
 
 > [!NOTE]
 > ZeDMDUpdater-universal is a non-Windows specific alternative to the great [ZeDMD_Updater2](https://github.com/zesinger/ZeDMD_Updater2).
 > It only supports flashing through USB for now, and does not yet allow to set ZeDMD configuration.
+> Leveraging a lot of code from ZeDMD_Updater2, ZeDMDUpdater-universal adopts the same Open Source license - GPL 3.0.
 
 ## Features
 
@@ -16,7 +17,7 @@ A universal (Windows, Linux, MacOS) command-line utility to update firmware on Z
   - LilygoS3Amoled (with optional WiFi support)
 - Firmware version selection
 - Easy-to-use interactive menu
-- Device settings configuration (coming)
+- Device settings configuration
 
 ## Prerequisites
 
@@ -36,7 +37,7 @@ usbipd attach --wsl --busid=<your-device-busid>
 
 ## Usage
 
-1. Connect your ZeDMD display to your computer
+1. Connect your ZeDMD display to your computer on USB
 2. Run the application:
 
     ```shell
@@ -45,8 +46,7 @@ usbipd attach --wsl --busid=<your-device-busid>
 
 3. Follow the interactive menu to:
 
-   - Select your board type
    - Choose firmware version
    - Download firmware
    - Flash your device
-   - Configure device settings (coming)
+   - Configure device settings
